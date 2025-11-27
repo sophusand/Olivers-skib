@@ -543,22 +543,3 @@
     </script>
 </body>
 </html>
-            document.getElementById('loading').style.display = 'none';
-            document.getElementById('shipData').style.display = 'block';
-            
-            // Show info message
-            const errorDiv = document.getElementById('error');
-            errorDiv.textContent = '⚠️ Viser demo data. For live data, opdater med din API key.';
-            errorDiv.style.display = 'block';
-            errorDiv.style.background = '#fef3c7';
-            errorDiv.style.color = '#92400e';
-        }
-
-        // Auto-refresh every 5 minutes
-        setInterval(fetchShipData, 5 * 60 * 1000);
-
-        // Load data on page load
-        fetchShipData();
-    </script>
-</body>
-</html>
