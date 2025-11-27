@@ -2,6 +2,33 @@
 
 En simpel, gratis hjemmeside der viser Oliver's skibsposition i real-time!
 
+## 🌐 Live Website
+
+**👉 https://sophusand.github.io/Olivers-skib/**
+
+Åbn linket på mobil/computer og tilføj til homescreen! 📱
+
+---
+
+## ⚡ Quick Setup (3 steps)
+
+**1. Aktiver GitHub Pages:**
+- Gå til: [Settings → Pages](https://github.com/sophusand/Olivers-skib/settings/pages)
+- Branch: vælg **main**
+- Klik **Save**
+
+**2. Aktiver Automatisk Opdatering:**
+- Gå til: [Actions](https://github.com/sophusand/Olivers-skib/actions)
+- Klik **"Enable workflows"**
+- Klik "Update Ship Data" → **"Run workflow"**
+
+**3. Vent 2 minutter og åbn:**
+- https://sophusand.github.io/Olivers-skib/
+
+Færdig! 🎉
+
+---
+
 ## 🌟 Fordele ved Hjemmeside vs. App
 
 | Feature | Hjemmeside | iOS App |
