@@ -151,6 +151,111 @@
             margin-bottom: 20px;
         }
 
+        .photo-gallery {
+            margin-top: 30px;
+        }
+
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .gallery-header h2 {
+            color: #2d3748;
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+
+        .gallery-header p {
+            color: #718096;
+            font-size: 1em;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .photo-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+            aspect-ratio: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+            background: rgba(0, 0, 0, 0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
         .map-link {
             display: inline-block;
             margin-top: 10px;
@@ -251,6 +356,25 @@
                 <p>Sidst opdateret: <span id="lastUpdate">-</span></p>
                 <p style="margin-top: 10px;">🌊 God tur, Oliver! 🌊</p>
             </div>
+
+            <!-- Photo Gallery -->
+            <div class="photo-gallery">
+                <div class="gallery-header">
+                    <h2>📸 Billeder af Oliver</h2>
+                    <p>På eventyr til søs</p>
+                </div>
+                <div class="photo-grid" id="photoGrid">
+                    <!-- Photos will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox for full-size images -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <div class="lightbox-close">×</div>
+        <div class="lightbox-content">
+            <img id="lightboxImg" src="" alt="Oliver">
         </div>
     </div>
 
@@ -351,14 +475,55 @@
             const lat = 32.0333;
             const lon = -80.8833;
             
-            document.getElementById('location').textContent = 'Savannah Anch., Georgia, USA';
-            document.getElementById('coordinates').textContent = `${lat.toFixed(4)}°, ${lon.toFixed(4)}°`;
-            document.getElementById('localTime').textContent = getLocalTime(lon);
-            document.getElementById('speed').textContent = '0.1 knob';
-            document.getElementById('course').textContent = '54.8°';
-            document.getElementById('mapLink').href = `https://www.google.com/maps?q=${lat},${lon}`;
-            document.getElementById('lastUpdate').textContent = new Date().toLocaleString('da-DK');
+        // Photo gallery
+        const photos = [
+            'photos/IMG_0416.JPG',
+            'photos/IMG_7319.JPG',
+            'photos/IMG_8021.jpeg',
+            'photos/IMG_9541.jpeg',
+            'photos/lp_image.jpeg'
+        ];
 
+        function loadPhotos() {
+            const grid = document.getElementById('photoGrid');
+            photos.forEach(photo => {
+                const item = document.createElement('div');
+                item.className = 'photo-item';
+                item.onclick = () => openLightbox(photo);
+                
+                const img = document.createElement('img');
+                img.src = photo;
+                img.alt = 'Oliver';
+                img.loading = 'lazy';
+                
+                item.appendChild(img);
+                grid.appendChild(item);
+            });
+        }
+
+        function openLightbox(photoSrc) {
+            document.getElementById('lightboxImg').src = photoSrc;
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        // Close lightbox on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Auto-refresh every 5 minutes
+        setInterval(fetchShipData, 5 * 60 * 1000);
+
+        // Load data and photos on page load
+        fetchShipData();
+        loadPhotos();
+    </script>
+</body>
+</html>
             document.getElementById('loading').style.display = 'none';
             document.getElementById('shipData').style.display = 'block';
             
