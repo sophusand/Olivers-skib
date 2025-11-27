@@ -475,6 +475,25 @@
             const lat = 32.0333;
             const lon = -80.8833;
             
+            document.getElementById('location').textContent = 'Savannah Anch., Georgia, USA';
+            document.getElementById('coordinates').textContent = `${lat.toFixed(4)}°, ${lon.toFixed(4)}°`;
+            document.getElementById('localTime').textContent = getLocalTime(lon);
+            document.getElementById('speed').textContent = '0.1 knob';
+            document.getElementById('course').textContent = '54.8°';
+            document.getElementById('mapLink').href = `https://www.google.com/maps?q=${lat},${lon}`;
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleString('da-DK');
+
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('shipData').style.display = 'block';
+            
+            // Show info message
+            const errorDiv = document.getElementById('error');
+            errorDiv.textContent = '⚠️ Viser demo data. For live data, opdater med din API key.';
+            errorDiv.style.display = 'block';
+            errorDiv.style.background = '#fef3c7';
+            errorDiv.style.color = '#92400e';
+        }
+
         // Photo gallery
         const photos = [
             'photos/IMG_0416.JPG',
