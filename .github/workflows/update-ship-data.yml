@@ -1,11 +1,11 @@
 name: Update Ship Data
 
 on:
-  schedule:
-    # Kør hver 15. minut
-    - cron: '*/15 * * * *'
+  # schedule:
+  #   # Kør hver 15. minut
+  #   - cron: '*/15 * * * *'
   
-  # Tillad manuel kørsel
+  # Kun manuel kørsel
   workflow_dispatch:
 
 jobs:
